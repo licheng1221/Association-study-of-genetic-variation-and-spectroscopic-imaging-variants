@@ -6,7 +6,7 @@ This repository contains the code and data for the publication "Association stud
 
 The spectral measurement data underlying the results presented in this paper are available as a published dataset at SPECCHIO http://sc22.geo.uzh.ch:8080/SPECCHIO_Web_Interface/search, with Keyword: UZH_SG_Nicotiana_attenuata_ASD
 
-The processed data can be found under the folder "Data_rds", which are the input files for the downstream analyses.
+The processed data can be found under the folder "Data", which are the input files for the downstream analyses.
 
 ## Code
 
