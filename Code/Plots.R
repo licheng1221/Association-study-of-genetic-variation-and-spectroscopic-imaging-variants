@@ -298,7 +298,26 @@ plot_grid(Fig_1a,Fig_1b,Fig_1c,Fig_1d,
           nrow=2,labels = c('(a)','(b)','(c)','(d)'))
 dev.off()
 
+## Extract and save the first PC of each phenotypic segment
+# Function to read the first column of a file
+read_first_column <- function(segment) {
+  data <- read.table(paste0("Seg", segment, "_pcs.txt"), header = TRUE)
+  return(data[,1])
+}
 
+setwd("~/Desktop/GAPIT/HSC_new")
+# Read and combine the first column of the files
+combined_data <- data.frame(lapply(segments_to_read, read_first_column))
+names(combined_data) <- paste0("Seg", segments_to_read)
+
+# Add a new column to combined_data with the taxa information
+combined_data$Taxa <- Spec$Taxa
+
+# Move the Taxa column to the first position
+combined_data <- combined_data[, c("Taxa", setdiff(colnames(combined_data), "Taxa"))]
+saveRDS(combined_data,"~/Desktop/GAPIT/HSC_PCs.rds")
+
+# From here one can also read from the saved RDS file for the HSC-PCs as phenotypes
 PCs = readRDS("~/Desktop/GAPIT/HSC_PCs.rds")
 PCs_no_taxa <- PCs[,-1]
 
