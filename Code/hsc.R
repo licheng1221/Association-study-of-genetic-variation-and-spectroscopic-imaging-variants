@@ -1,10 +1,20 @@
+set.seed(66)
+
 library(kernlab)
 library(factoextra)
 library(paran)
 library(tidyverse)
 
-Spec = readRDS("Pheno_leafspec.rds")
-# Remove the "Taxa" column before calculating distances
+# --------------------------
+# User paths (EDIT THESE)
+# --------------------------
+spec_rds <- "/path/to/Pheno_corr.rds"
+out_dir  <- "path/to/your/output/directory"
+
+
+# Read spectra data
+Spec = readRDS(spec_rds)
+# Remove the "Taxa" column and spectral of 350-399 nm before calculating distances
 Spec_no_taxa <- Spec[,-c(1:51)]
 
 # Transpose it because dist() calculates distances between rows, not columns
@@ -104,9 +114,16 @@ results <- recursive_spectral_clustering_PA(Spec_t, Spec_no_taxa, results_df = r
 results_df <- results$results_df
 seg_df <- results$seg_df
 
-write.csv(results_df, "results.csv", row.names=FALSE, quote=FALSE)
-saveRDS(results_df, "results.rds")
+# Write results_df
+write.csv(results_df,
+          file = file.path(out_dir, "results.csv"),
+          row.names = FALSE, quote = FALSE)
+saveRDS(results_df,
+        file = file.path(out_dir, "results.rds"))
 
-write.csv(seg_df, "segments.csv", row.names=FALSE, quote=FALSE)
-saveRDS(seg_df, "segments.rds")
-
+# Write seg_df
+write.csv(seg_df,
+          file = file.path(out_dir, "segments.csv"),
+          row.names = FALSE, quote = FALSE)
+saveRDS(seg_df,
+        file = file.path(out_dir, "segments.rds"))
