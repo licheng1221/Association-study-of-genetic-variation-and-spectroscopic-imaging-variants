@@ -6,7 +6,7 @@ source("http://zzlab.net/GAPIT/gapit_functions.txt")
 # --------------------------
 geno_rds <- "/path/to/geno.rds"
 magic_snp <- "/path/to/magic_snp.txt"
-pheno_rds <- "path/to/HSC_PCs.rds"
+pheno_rds <- "path/to/HSC_PCs_corr.rds"
 
 #Read the genotype data from the correct path
 geno = readRDS(geno_rds)
